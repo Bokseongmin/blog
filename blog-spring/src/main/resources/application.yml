@@ -1,5 +1,5 @@
 server:
-  port: 9047
+  port: 4000
 spring:
   main:
     banner-mode: off
@@ -10,5 +10,5 @@ spring:
     password: root
 
 mybatis:
-  mapper-locations: classpath:sqlmap/**/*.xml
-  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mybatis/sql/**/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
