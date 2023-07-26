@@ -1,4 +1,4 @@
-package com.bok.blog.dto;
+package com.bok.blog.vo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ReplyDto {
+public class ReplyVo {
     private Long reply_num;
     private Long board_num;
     private Long user_num;

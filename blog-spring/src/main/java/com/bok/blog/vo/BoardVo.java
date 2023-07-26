@@ -1,4 +1,4 @@
-package com.bok.blog.dto;
+package com.bok.blog.vo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BoardDto {
+public class BoardVo {
     private Long board_num;
     private String board_title;
     private String board_content;

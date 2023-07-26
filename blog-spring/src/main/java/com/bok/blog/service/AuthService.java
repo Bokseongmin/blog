@@ -1,13 +1,61 @@
 package com.bok.blog.service;
 
+import com.bok.blog.dto.UserDto;
 import com.bok.blog.mapper.UserMapper;
+import com.bok.blog.vo.UserVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+@Slf4j
 @Service
 public class AuthService {
 
     @Resource
     private UserMapper userMapper;
+
+    public int signUp(UserDto userDto) {
+        String user_email = userDto.getUser_email();
+        String user_pw = userDto.getUser_pw();
+        String user_pw_check = userDto.getUser_pw_check();
+        
+        // user_email 중복체크
+        try {
+            if (userMapper.existUser_email(user_email) > 0) {
+                log.warn("Exist Email");
+                return 0;
+            }
+        } catch (Exception e) {
+            log.error("DB Error(existUser_email)");
+            log.error("{}", e.toString());
+            return 0;
+        }
+        
+        // user_pw, user_pw_check 일치 확인
+
+        if (!user_pw.equals(user_pw_check)) {
+            log.error("Password does not matched");
+            return 0;
+        }
+
+        // UserVo 생성
+        UserVo userVo = new UserVo(userDto);
+
+        // 회원 등록
+        try {
+            if (userMapper.signUp(userVo) > 0) {
+                return 1;
+            }
+        } catch (Exception e) {
+            log.error("DB Error(signUp)");
+            log.error("{}", e.toString());
+            return 0;
+        }
+        return 1;
+    }
+
+    public int signIn(UserDto userDto) {
+        return 0;
+    }
 }
