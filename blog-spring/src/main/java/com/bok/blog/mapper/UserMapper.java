@@ -8,4 +8,8 @@ public interface UserMapper {
     int existUser_email(String user_email);
 
     int signUp(UserVo userVo);
+
+    int validation(UserVo userVo);
+
+    UserVo signIn(String user_email);
 }

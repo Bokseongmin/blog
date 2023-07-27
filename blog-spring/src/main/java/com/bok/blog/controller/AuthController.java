@@ -1,5 +1,6 @@
 package com.bok.blog.controller;
 
+import com.bok.blog.dto.SignResDto;
 import com.bok.blog.dto.UserDto;
 import com.bok.blog.service.AuthService;
 import com.bok.blog.service.UserService;
@@ -34,9 +35,9 @@ public class AuthController {
     @PostMapping("/signIn")
     public ResponseEntity<ResResult> signIn(@RequestBody UserDto userDto) {
         ResResult result;
-        int affectRow = authService.signIn(userDto);
-        if(affectRow > 0) {
-            result = ResUtil.makeResult(ResStatus.OK, null);
+        SignResDto signResDto = authService.signIn(userDto);
+        if(signResDto != null) {
+            result = ResUtil.makeResult(ResStatus.OK, signResDto);
         } else {
             result = ResUtil.makeResult("4444", "로그인 중 오류가 발생했습니다.", null);
         }

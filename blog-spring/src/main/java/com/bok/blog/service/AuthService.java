@@ -1,7 +1,9 @@
 package com.bok.blog.service;
 
+import com.bok.blog.dto.SignResDto;
 import com.bok.blog.dto.UserDto;
 import com.bok.blog.mapper.UserMapper;
+import com.bok.blog.support.security.TokenProvider;
 import com.bok.blog.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class AuthService {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private TokenProvider tokenProvider;
+
     public int signUp(UserDto userDto) {
         String user_email = userDto.getUser_email();
         String user_pw = userDto.getUser_pw();
@@ -27,8 +32,8 @@ public class AuthService {
                 return 0;
             }
         } catch (Exception e) {
-            log.error("DB Error(existUser_email)");
-            log.error("{}", e.toString());
+            log.error("DB error(existUser_email)");
+            log.error("{}", e.getMessage());
             return 0;
         }
         
@@ -48,14 +53,42 @@ public class AuthService {
                 return 1;
             }
         } catch (Exception e) {
-            log.error("DB Error(signUp)");
-            log.error("{}", e.toString());
+            log.error("DB error(signUp)");
+            log.error("{}", e.getMessage());
             return 0;
         }
         return 1;
     }
 
-    public int signIn(UserDto userDto) {
-        return 0;
+    public SignResDto signIn(UserDto userDto) {
+        String user_email = userDto.getUser_email();
+        String user_pw = userDto.getUser_pw();
+        UserVo userVo = new UserVo(userDto);
+
+        int affectRow = 0;
+        try {
+            affectRow = userMapper.validation(userVo);
+            if (affectRow == 0) {
+                log.warn("Sign does not match");
+                return null;
+            }
+        } catch (Exception e) {
+            log.error("DB error(Sign Validation)");
+            log.error("{}", e.getMessage());
+            return null;
+        }
+
+        try {
+            userVo = userMapper.signIn(user_email);
+        } catch (Exception e) {
+            log.error("DB error(signIn)");
+            log.error("{}", e.getMessage());
+            return null;
+        }
+        userVo.setUser_pw("");
+        String token = tokenProvider.create(user_email);
+        int exprTime = 3600000;
+
+        return new SignResDto(token, exprTime, userVo);
     }
 }

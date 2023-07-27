@@ -9,8 +9,20 @@
         WHERE user_email = #{user_email}
     </select>
 
-    <insert id="signUp" parameterType="com.bok.blog.vo.UserVo">
+    <insert id="signUp" parameterType="UserVo">
         INSERT INTO user(user_email, user_pw, user_nick, user_regdate)
         VALUES (#{user_email}, #{user_pw}, #{user_nick}, now())
     </insert>
+
+    <select id="validation" parameterType="UserVo">
+        SELECT COUNT(user_email)
+        FROM user
+        WHERE user_email = #{user_email} AND user_pw = #{user_pw}
+    </select>
+
+    <select id="signIn" parameterType="String" resultType="UserVo">
+        SELECT user_num, user_email, user_pw, user_nick, user_thumb, user_regdate, user_moddate
+        FROM user
+        WHERE user_email = #{user_email}
+    </select>
 </mapper>
