@@ -1,1 +1,3 @@
-export const tmp = '';
+import userUserStore from './user.store';
+
+export {userUserStore};

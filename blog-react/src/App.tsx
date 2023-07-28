@@ -1,8 +1,8 @@
 import './App.css';
-import Athentication from './view/Athentication';
+import MainLayout from './view/layout/main';
 
 export default function App() {
     return (
-        <Athentication />
+        <MainLayout />
     );
 }
