@@ -17,7 +17,7 @@
     <select id="validation" parameterType="UserVo">
         SELECT COUNT(user_email)
         FROM user
-        WHERE user_email = #{user_email} AND user_pw = #{user_pw}
+        WHERE user_email = #{user_email}
     </select>
 
     <select id="signIn" parameterType="String" resultType="UserVo">

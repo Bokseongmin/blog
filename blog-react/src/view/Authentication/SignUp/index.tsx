@@ -28,12 +28,8 @@ export default function SignUp(props: props) {
 
     const signUpRes = await signUpApi(data);
 
+    console.log(signUpRes);
     if(!signUpRes) {
-      alert("회원가입에 실패했습니다.");
-      return;
-    }
-
-    if(!signUpRes.result) {
       alert("회원가입에 실패했습니다.");
       return;
     }

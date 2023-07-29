@@ -6,6 +6,8 @@ import com.bok.blog.mapper.UserMapper;
 import com.bok.blog.support.security.TokenProvider;
 import com.bok.blog.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,6 +21,8 @@ public class AuthService {
 
     @Resource
     private TokenProvider tokenProvider;
+
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public int signUp(UserDto userDto) {
         String user_email = userDto.getUser_email();
@@ -46,6 +50,9 @@ public class AuthService {
 
         // UserVo 생성
         UserVo userVo = new UserVo(userDto);
+
+        // 비밀번호 암호화
+        userVo.setUser_pw(passwordEncoder.encode(user_pw));
 
         // 회원 등록
         try {
@@ -80,6 +87,12 @@ public class AuthService {
 
         try {
             userVo = userMapper.signIn(user_email);
+            if(userVo == null) {
+                return null;
+            }
+            if(!passwordEncoder.matches(userDto.getUser_pw(), userVo.getUser_pw())) {
+                return null;
+            }
         } catch (Exception e) {
             log.error("DB error(signIn)");
             log.error("{}", e.getMessage());

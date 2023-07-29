@@ -32,12 +32,12 @@ export default function SignIn(props: props) {
         console.log(signInRes);
 
         if(!signInRes) {
-            console.log("로그인에 실패했습니다.");
+            alert("로그인에 실패했습니다.");
             return;
         }
 
-        if(signInRes.result) {
-            console.log("로그인에 실패했습니다.");
+        if(signInRes.body == null) {
+            alert("로그인에 실패했습니다.");
             return;
         }
 
