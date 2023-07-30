@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bok.blog.mapper.PopularSearchMapper">
+
+    <select id="list" resultType="PopularSearchVo">
+        SELECT *
+        FROM popular_search
+        ORDER BY popular_search_cnt DESC;
+    </select>
+</mapper>

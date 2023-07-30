@@ -21,7 +21,7 @@
     </select>
 
     <select id="signIn" parameterType="String" resultType="UserVo">
-        SELECT user_num, user_email, user_pw, user_nick, user_thumb, user_regdate, user_moddate
+        SELECT *
         FROM user
         WHERE user_email = #{user_email}
     </select>

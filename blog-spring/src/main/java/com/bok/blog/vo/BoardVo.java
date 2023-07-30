@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString
@@ -18,7 +20,8 @@ public class BoardVo {
     private Long board_writer_num;
     private String board_writer_thumb;
     private String board_writer_nick;
-    private String board_write_date;
+    private LocalDateTime board_regdate;
+    private LocalDateTime board_moddate;
     private int board_click_cnt;
     private int board_like_cnt;
     private int board_reply_cnt;

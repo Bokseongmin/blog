@@ -10,5 +10,7 @@
 
     <typeAliases>
         <typeAlias type="com.bok.blog.vo.UserVo" alias="UserVo" />
+        <typeAlias type="com.bok.blog.vo.BoardVo" alias="BoardVo" />
+        <typeAlias type="com.bok.blog.vo.PopularSearchVo" alias="PopularSearchVo" />
     </typeAliases>
 </configuration>
