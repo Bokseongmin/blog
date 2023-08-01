@@ -52,4 +52,15 @@ public class BoardService {
 
         return list;
     }
+
+    public List<BoardVo> searchList(String title) {
+        List<BoardVo> list = null;
+        try {
+            list = boardMapper.searchList(title);
+        } catch (Exception e) {
+            log.error("DB Error(board.searchList)");
+            log.error("{}", e.getMessage());
+        }
+        return list;
+    }
 }

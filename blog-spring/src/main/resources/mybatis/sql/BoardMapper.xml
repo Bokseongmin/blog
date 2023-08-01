@@ -16,4 +16,11 @@
         FROM board
         ORDER BY board_regdate DESC;
     </select>
+
+    <select id="searchList" parameterType="String" resultType="BoardVo">
+        SELECT *
+        FROM board
+        WHERE board_title LIKE CONCAT('%', #{title}, '%')
+        ORDER BY board_regdate DESC
+    </select>
 </mapper>

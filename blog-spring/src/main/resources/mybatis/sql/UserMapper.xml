@@ -25,4 +25,10 @@
         FROM user
         WHERE user_email = #{user_email}
     </select>
+
+    <select id="info" parameterType="String" resultType="UserVo">
+        SELECT *
+        FROM user
+        WHERE user_email = #{user_email}
+    </select>
 </mapper>

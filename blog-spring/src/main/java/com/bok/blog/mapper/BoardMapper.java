@@ -11,4 +11,6 @@ public interface BoardMapper {
     List<BoardVo> top5();
 
     List<BoardVo> list();
+
+    List<BoardVo> searchList(String title);
 }

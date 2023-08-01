@@ -12,4 +12,6 @@ public interface UserMapper {
     int validation(UserVo userVo);
 
     UserVo signIn(String user_email);
+
+    UserVo info(String user_email);
 }

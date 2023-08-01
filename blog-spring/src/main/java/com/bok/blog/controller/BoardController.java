@@ -9,6 +9,7 @@ import com.bok.blog.vo.PopularSearchVo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,6 +53,19 @@ public class BoardController {
         List<PopularSearchVo> list = boardService.popularSearchList();
         if(list != null) {
             result = ResUtil.makeResult(ResStatus.OK, list);
+        } else {
+            result = ResUtil.makeResult("4444", "데이터가 존재하지 않습니다.", null);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{title}")
+    public ResponseEntity<ResResult> getSearchList(@PathVariable("title") String title) {
+        ResResult result;
+        List<BoardVo> searchList = boardService.searchList(title);
+        if(searchList != null) {
+            result = ResUtil.makeResult(ResStatus.OK, searchList);
         } else {
             result = ResUtil.makeResult("4444", "데이터가 존재하지 않습니다.", null);
         }
