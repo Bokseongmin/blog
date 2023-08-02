@@ -3,7 +3,6 @@ package com.bok.blog.controller;
 import com.bok.blog.dto.SignResDto;
 import com.bok.blog.dto.UserDto;
 import com.bok.blog.service.AuthService;
-import com.bok.blog.service.UserService;
 import com.bok.blog.support.res.ResUtil;
 import com.bok.blog.support.res.result.ResResult;
 import com.bok.blog.support.res.result.ResStatus;

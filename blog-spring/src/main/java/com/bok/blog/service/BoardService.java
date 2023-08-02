@@ -1,5 +1,6 @@
 package com.bok.blog.service;
 
+import com.bok.blog.dto.BoardDto;
 import com.bok.blog.mapper.BoardMapper;
 import com.bok.blog.mapper.PopularSearchMapper;
 import com.bok.blog.vo.BoardVo;
@@ -62,5 +63,33 @@ public class BoardService {
             log.error("{}", e.getMessage());
         }
         return list;
+    }
+
+    public int write(BoardDto boardDto) {
+        BoardVo boardVo = new BoardVo(boardDto);
+        int affectRow = 0;
+        try {
+            affectRow = boardMapper.write(boardVo);
+        } catch (Exception e) {
+            log.error("DB Error(board.write)");
+            log.error("{}", e.getMessage());
+        }
+        return affectRow;
+    }
+
+    public int modify(BoardDto boardDto) {
+        BoardVo boardVo = new BoardVo(boardDto);
+        int affectRow = 0;
+        try {
+            affectRow = boardMapper.modify(boardVo);
+        } catch (Exception e) {
+            log.error("DB Error(board.modify)");
+            log.error("{}", e.getMessage());
+        }
+        return affectRow;
+    }
+
+    public void delete() {
+
     }
 }

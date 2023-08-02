@@ -18,6 +18,9 @@ export default function Navigation() {
     setCookies('token', '', {expires: new Date()});
     removeUser();
   }
+
+  const isLoggedIn = cookies && cookies.token;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -34,7 +37,7 @@ export default function Navigation() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
           </Typography>
-          {user ? (
+          {isLoggedIn ? (
             <IconButton color="inherit" onClick={() => signOutHandler()}>
               <PersonIcon />
             </IconButton>

@@ -13,4 +13,10 @@ public interface BoardMapper {
     List<BoardVo> list();
 
     List<BoardVo> searchList(String title);
+
+    int write(BoardVo boardVo);
+
+    int modify(BoardVo boardVo);
+
+    int delete(BoardVo boardVo);
 }

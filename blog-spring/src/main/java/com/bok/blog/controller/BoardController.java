@@ -1,5 +1,6 @@
 package com.bok.blog.controller;
 
+import com.bok.blog.dto.BoardDto;
 import com.bok.blog.service.BoardService;
 import com.bok.blog.support.res.ResUtil;
 import com.bok.blog.support.res.result.ResResult;
@@ -8,10 +9,8 @@ import com.bok.blog.vo.BoardVo;
 import com.bok.blog.vo.PopularSearchVo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,6 +20,11 @@ import java.util.List;
 public class BoardController {
     @Resource
     private BoardService boardService;
+
+    @GetMapping
+    public String getBoard(@AuthenticationPrincipal String user_email) {
+        return "board";
+    }
     @GetMapping("/top5")
     public ResponseEntity<ResResult> getTop5() {
         ResResult result;
@@ -70,6 +74,30 @@ public class BoardController {
             result = ResUtil.makeResult("4444", "데이터가 존재하지 않습니다.", null);
         }
 
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/write")
+    public ResponseEntity<ResResult> postWrite(@AuthenticationPrincipal String user_email, @RequestBody BoardDto boardDto) {
+        ResResult result;
+        int affectRow = boardService.write(boardDto);
+        if(affectRow > 0) {
+            result = ResUtil.makeResult(ResStatus.OK, null);
+        } else {
+            result = ResUtil.makeResult("4444", "글 등록 중 오류가 발생했습니다.", null);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/modify")
+    public ResponseEntity<ResResult> postModify(@AuthenticationPrincipal String user_email, @RequestBody BoardDto boardDto) {
+        ResResult result;
+        int affectRow = boardService.modify(boardDto);
+        if(affectRow > 0) {
+            result = ResUtil.makeResult(ResStatus.OK, null);
+        } else {
+            result = ResUtil.makeResult("4444", "글 수정 중 오류가 발생했습니다.", null);
+        }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

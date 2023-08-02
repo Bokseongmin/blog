@@ -55,7 +55,7 @@ export default function SignUp(props: props) {
       </Box>
       <Box component={'div'} display={'flex'} mt={2}>
         <Typography>이미 계정이 있으신가요?</Typography>
-        <Typography fontWeight={800} ml={1} onClick={() => setAuthView(false)}>회원가입</Typography>
+        <Typography fontWeight={800} ml={1} onClick={() => setAuthView(false)}>로그인</Typography>
       </Box>
     </Card>
   )

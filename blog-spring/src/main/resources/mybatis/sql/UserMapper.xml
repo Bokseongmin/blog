@@ -31,4 +31,17 @@
         FROM user
         WHERE user_email = #{user_email}
     </select>
+
+    <update id="modify" parameterType="UserVo">
+        UPDATE user
+        SET
+        <if test="user_nick != null and user_nick != ''">
+            user_nick = #{user_nick},
+        </if>
+        <if test="user_thumb != null and user_thumb != ''">
+            user_thumb = #{user_thumb},
+        </if>
+        user_moddate = now()
+        WHERE id = #{id}
+    </update>
 </mapper>

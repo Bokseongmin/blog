@@ -14,4 +14,6 @@ public interface UserMapper {
     UserVo signIn(String user_email);
 
     UserVo info(String user_email);
+
+    int modify(UserVo userVo);
 }
